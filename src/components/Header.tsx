@@ -1,6 +1,7 @@
 import { Button, Container, AppBar } from "@mui/material";
 import BubbleChartOutlinedIcon from "@mui/icons-material/BubbleChartOutlined";
 import { styled } from "@mui/material/styles";
+import { Link } from "react-router";
 
 export const Header = () => {
   return (
@@ -9,12 +10,17 @@ export const Header = () => {
         maxWidth="lg"
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
-        <StyledLogoLink href="/">
+        <StyledLogoLink to="/">
           <BubbleChartOutlinedIcon />
           ARTicle
         </StyledLogoLink>
         <div>
-          <Button variant="outlined" sx={{ marginRight: "0.8rem" }}>
+          <Button
+            component={Link}
+            to="/login"
+            variant="outlined"
+            sx={{ marginRight: "0.8rem" }}
+          >
             Login
           </Button>
           <Button variant="contained">Register</Button>
@@ -29,7 +35,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   padding: "0.8rem 0",
 }));
 
-const StyledLogoLink = styled("a")(({ theme }) => ({
+const StyledLogoLink = styled(Link)(({ theme }) => ({
   color: theme.palette.primary.main,
   display: "flex",
   gap: "0.4rem",
