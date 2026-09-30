@@ -1,28 +1,41 @@
 import { createTheme } from "@mui/material/styles";
 
+const COLORS = {
+  main: "#1f2937",
+  mainLight: "#2d3c50",
+  mainLighter: "#34455d",
+  mainTint: "#ebeef4",
+  gray: "#626875",
+  white: "#fff",
+};
+
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#1f2937",
-      light: "#34455d",
+      main: COLORS.main,
+      light: COLORS.mainLighter,
     },
     text: {
-      primary: "#1F2937",
-      secondary: "#626875",
+      primary: COLORS.main,
+      secondary: COLORS.gray,
     },
     background: {
-      default: "#fff",
+      default: COLORS.white,
     },
   },
 
   typography: {
     fontFamily: '"Spectral", serif',
 
-    h1: {
-      fontWeight: 500,
+    body1: {
+      color: COLORS.main,
     },
 
-    h2: {
+    body2: {
+      color: COLORS.gray,
+    },
+
+    h5: {
       fontWeight: 500,
     },
   },
@@ -31,7 +44,7 @@ export const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          color: "#1F2937",
+          color: COLORS.main,
         },
       },
     },
@@ -42,33 +55,33 @@ export const theme = createTheme({
         },
 
         contained: {
-          backgroundColor: "#1f2937",
-          color: "#FFFFFF",
+          backgroundColor: COLORS.main,
+          color: COLORS.white,
 
           "&:hover": {
-            backgroundColor: "#2d3c50",
+            backgroundColor: COLORS.mainLight,
           },
 
           "&:active": {
-            backgroundColor: "#34455d",
+            backgroundColor: COLORS.mainLighter,
           },
         },
 
         outlined: {
-          color: "#1f2937",
-          borderColor: "#1f2937",
+          color: COLORS.main,
+          borderColor: COLORS.main,
 
           "&:hover": {
-            borderColor: "#2d3c50",
-            backgroundColor: "#ebeef4",
+            borderColor: COLORS.mainLight,
+            backgroundColor: COLORS.mainTint,
           },
         },
 
         text: {
-          color: "#1f2937",
+          color: COLORS.main,
 
           "&:hover": {
-            backgroundColor: "#ebeef4",
+            backgroundColor: COLORS.mainTint,
           },
         },
       },
