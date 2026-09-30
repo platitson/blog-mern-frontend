@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchPosts } from "../redux/slices/posts.ts";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { PostCard } from "../components/PostCard";
 import { styled } from "@mui/material/styles";
+import type { AppDispatch } from "../redux/store.ts";
 
 type Tabs = "new" | "popular";
 
 export const Home = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
   const [value, setValue] = useState<Tabs>("new");
 
   const handleChange = (_event: React.SyntheticEvent, newValue: Tabs) => {
