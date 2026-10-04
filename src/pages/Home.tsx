@@ -6,15 +6,16 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { PostCard } from "../components/PostCard";
 import { styled } from "@mui/material/styles";
 import type { AppDispatch, RootState } from "../redux/store.ts";
+import { TagsCard } from "../components/TagsCard.tsx";
 
 type Tabs = "new" | "popular";
 
 export const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { posts, tags } = useSelector((state: RootState) => state.posts);
-  const isPostsLoading = posts.status === "loading";
-
-  console.log(tags);
+  const { posts, lastTags, status } = useSelector(
+    (state: RootState) => state.posts
+  );
+  const isPostsLoading = status === "loading";
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -38,10 +39,16 @@ export const Home = () => {
             {isPostsLoading ? (
               <Skeleton variant="rounded" height={420} />
             ) : (
-              posts.items.map((post, idx) => <PostCard key={idx} post={post} />)
+              posts.map((post, idx) => <PostCard key={idx} post={post} />)
             )}
           </Left>
-          <Right>Comments</Right>
+          <Right>
+            {isPostsLoading ? (
+              <Skeleton variant="rounded" height={105} />
+            ) : (
+              <TagsCard tags={lastTags} />
+            )}
+          </Right>
         </Wrapper>
       </TabPanel>
       <TabPanel value="popular" tabIndex={0}>
