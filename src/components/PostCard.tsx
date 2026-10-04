@@ -1,33 +1,41 @@
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-} from "@mui/material";
+import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+import Banana from "../assets/banana.jpg";
+import type { PostType } from "../types";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { styled } from "@mui/material/styles";
 
-export const PostCard = () => {
+type PostCardProps = {
+  post: PostType;
+};
+
+export const PostCard = ({ post }: PostCardProps) => {
+  const dateFormatted = new Date(post.createdAt).toLocaleDateString("cs-CZ");
   return (
     <Card sx={{ marginBottom: "1.6rem" }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
+        sx={{ height: 280 }}
+        image={post.imageUrl ?? Banana}
         title="Lizard"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {post.title}
         </Typography>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          By {post.author.fullName}, {dateFormatted}
         </Typography>
+        <Views>
+          <VisibilityIcon />
+          <span>{post.viewsCount}</span>
+        </Views>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 };
+
+const Views = styled("div")(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  display: "flex",
+  gap: "0.4rem",
+  marginTop: "0.8rem",
+}));

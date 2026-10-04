@@ -3,23 +3,38 @@ import {
   createAsyncThunk,
   type AsyncThunk,
   type AsyncThunkConfig,
+  type Reducer,
 } from "@reduxjs/toolkit";
 import axios from "../../axios";
-import type { PostSchemaType } from "../../types";
+import type { PostType } from "../../types";
 
 export const fetchPosts: AsyncThunk<
-  Array<PostSchemaType>,
+  Array<PostType>,
   void,
   AsyncThunkConfig
-> = createAsyncThunk<Array<PostSchemaType>, void>(
-  "posts/fetchPosts",
-  async () => {
-    const { data } = await axios.get("/posts");
-    return data;
-  }
-);
+> = createAsyncThunk<Array<PostType>, void>("posts/fetchPosts", async () => {
+  const { data } = await axios.get("/posts");
+  return data;
+});
 
-const initialState = {
+type Status = "loading" | "loaded" | "error";
+
+type PostsInitialState = {
+  items: Array<PostType>;
+  status: Status;
+};
+
+type TagsInitialState = {
+  items: [];
+  status: Status;
+};
+
+type InitialState = {
+  posts: PostsInitialState;
+  tags: TagsInitialState;
+};
+
+const initialState: InitialState = {
   posts: {
     items: [],
     status: "loading",
@@ -42,8 +57,12 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.posts.items = action.payload;
         state.posts.status = "loaded";
+      })
+      .addCase(fetchPosts.rejected, (state) => {
+        state.posts.items = [];
+        state.posts.status = "error";
       });
   },
 });
 
-export const postsReducer = postsSlice.reducer;
+export const postsReducer: Reducer<InitialState> = postsSlice.reducer;
