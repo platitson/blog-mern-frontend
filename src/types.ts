@@ -23,4 +23,5 @@ export type UserType = {
   fullName: string;
   email: string;
   avatarUrl?: string;
+  token?: string;
 };

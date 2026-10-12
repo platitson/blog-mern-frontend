@@ -4,8 +4,18 @@ import { Home } from "./pages/Home";
 import { Routes, Route } from "react-router";
 import { Login } from "./pages/Login";
 import { FullPost } from "./pages/FullPost";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "./redux/store";
+import { useEffect } from "react";
+import { fetchAuthMe } from "./redux/slices/auth";
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchAuthMe());
+  }, [dispatch]);
+
   return (
     <>
       <Header />

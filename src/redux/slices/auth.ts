@@ -25,12 +25,18 @@ export const fetchAuth: AsyncThunk<
   LoginSchemaType,
   AsyncThunkConfig
 > = createAsyncThunk<UserType, LoginSchemaType>(
-  "auth/fetchUserData",
+  "auth/fetchAuth",
   async (params) => {
     const { data } = await axios.post("/auth/login", params);
     return data;
   }
 );
+
+export const fetchAuthMe: AsyncThunk<UserType, void, AsyncThunkConfig> =
+  createAsyncThunk<UserType, void>("auth/fetchAuthMe", async () => {
+    const { data } = await axios.get("/auth/me");
+    return data;
+  });
 
 const authSlice = createSlice({
   name: "auth",
@@ -52,6 +58,18 @@ const authSlice = createSlice({
         state.status = "loaded";
       })
       .addCase(fetchAuth.rejected, (state) => {
+        state.data = null;
+        state.status = "error";
+      })
+      .addCase(fetchAuthMe.pending, (state) => {
+        state.data = null;
+        state.status = "loading";
+      })
+      .addCase(fetchAuthMe.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.status = "loaded";
+      })
+      .addCase(fetchAuthMe.rejected, (state) => {
         state.data = null;
         state.status = "error";
       });

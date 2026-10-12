@@ -24,8 +24,11 @@ export const Login = () => {
     formState: { errors },
   } = useLoginForm();
 
-  const onSubmit = (values: LoginSchemaType) => {
-    dispatch(fetchAuth(values));
+  const onSubmit = async (values: LoginSchemaType) => {
+    const data = await dispatch(fetchAuth(values));
+    if (fetchAuth.fulfilled.match(data) && "token" in data.payload) {
+      window.localStorage.setItem("token", data.payload.token);
+    }
   };
 
   if (isAuth) {
