@@ -6,7 +6,11 @@ import {
   type Reducer,
 } from "@reduxjs/toolkit";
 import axios from "../../axios";
-import type { LoginSchemaType, UserType } from "../../types";
+import type {
+  LoginSchemaType,
+  RegistrationSchemaType,
+  UserType,
+} from "../../types";
 
 type Status = "loading" | "loaded" | "error";
 
@@ -37,6 +41,18 @@ export const fetchAuthMe: AsyncThunk<UserType, void, AsyncThunkConfig> =
     const { data } = await axios.get("/auth/me");
     return data;
   });
+
+export const fetchRegister: AsyncThunk<
+  UserType,
+  RegistrationSchemaType,
+  AsyncThunkConfig
+> = createAsyncThunk<UserType, RegistrationSchemaType>(
+  "auth/fetchAuth",
+  async (params) => {
+    const { data } = await axios.post("/auth/register", params);
+    return data;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",

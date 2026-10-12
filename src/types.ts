@@ -1,6 +1,6 @@
 import type { z, ZodType } from "zod";
 import type { PostSchema } from "./schema/post";
-import type { LoginSchema } from "./schema/auth";
+import type { LoginSchema, RegistrationSchema } from "./schema/auth";
 
 export type CreateFromSchema<TType extends ZodType> = z.infer<TType>;
 
@@ -18,6 +18,10 @@ export type PostType = PostSchemaType & {
 
 // AUTH
 export type LoginSchemaType = CreateFromSchema<typeof LoginSchema>;
+export type RegistrationSchemaType = CreateFromSchema<
+  typeof RegistrationSchema
+>;
+
 export type UserType = {
   _id: string;
   fullName: string;

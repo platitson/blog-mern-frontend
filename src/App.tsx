@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "./redux/store";
 import { useEffect } from "react";
 import { fetchAuthMe } from "./redux/slices/auth";
+import { Registration } from "./pages/Registration";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/posts/:id" element={<FullPost />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
         </Routes>
       </Container>
     </>
