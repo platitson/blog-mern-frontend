@@ -5,6 +5,7 @@ export type CreateFromSchema<TType extends ZodType> = z.infer<TType>;
 
 export type PostSchemaType = CreateFromSchema<typeof PostSchema>;
 export type PostType = PostSchemaType & {
+  _id: string;
   author: {
     id: string;
     fullName: string;

@@ -19,6 +19,9 @@ export const theme = createTheme({
       primary: COLORS.main,
       secondary: COLORS.gray,
     },
+    info: {
+      main: COLORS.mainTint,
+    },
     background: {
       default: COLORS.white,
     },
@@ -37,6 +40,10 @@ export const theme = createTheme({
 
     h5: {
       fontWeight: 500,
+    },
+
+    h4: {
+      fontStyle: "italic",
     },
   },
 

@@ -1,4 +1,5 @@
 import { Card, CardContent, Typography } from "@mui/material";
+import { Tag } from "./Tag";
 
 type TagsCardProps = {
   tags: Array<string>;
@@ -12,7 +13,7 @@ export const TagsCard = ({ tags }: TagsCardProps) => {
           Tags
         </Typography>
         {tags.map((tag) => (
-          <span>#{tag}</span>
+          <Tag tag={tag} />
         ))}
       </CardContent>
     </Card>
