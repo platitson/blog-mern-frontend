@@ -38,6 +38,11 @@ export const theme = createTheme({
       color: COLORS.gray,
     },
 
+    h6: {
+      fontWeight: 400,
+      color: COLORS.mainLighter,
+    },
+
     h5: {
       fontWeight: 500,
     },
