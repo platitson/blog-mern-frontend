@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { LoginSchemaType } from "../types";
 import { Button, Paper, styled, TextField, Typography } from "@mui/material";
-import { fetchAuth } from "../redux/slices/auth";
+import { fetchAuth, isAuthSelector } from "../redux/slices/auth";
 import type { AppDispatch } from "../redux/store";
+import { Navigate } from "react-router";
 
 function useLoginForm() {
   return useForm<LoginSchemaType>({
@@ -15,6 +16,7 @@ function useLoginForm() {
 }
 
 export const Login = () => {
+  const isAuth = useSelector(isAuthSelector);
   const dispatch = useDispatch<AppDispatch>();
   const {
     register,
@@ -25,6 +27,10 @@ export const Login = () => {
   const onSubmit = (values: LoginSchemaType) => {
     dispatch(fetchAuth(values));
   };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <StyledPaper>

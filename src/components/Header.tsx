@@ -2,8 +2,20 @@ import { Button, Container, AppBar } from "@mui/material";
 import BubbleChartOutlinedIcon from "@mui/icons-material/BubbleChartOutlined";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { isAuthSelector, logout } from "../redux/slices/auth";
+import type { AppDispatch } from "../redux/store";
 
 export const Header = () => {
+  const isAuth = useSelector(isAuthSelector);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onClickLogout = () => {
+    if (window.confirm("Are you sure you want to logout?")) {
+      dispatch(logout());
+    }
+  };
+
   return (
     <StyledAppBar position="sticky">
       <Container
@@ -15,15 +27,28 @@ export const Header = () => {
           ARTicle
         </StyledLogoLink>
         <div>
-          <Button
-            component={Link}
-            to="/login"
-            variant="outlined"
-            sx={{ marginRight: "0.8rem" }}
-          >
-            Login
-          </Button>
-          <Button variant="contained">Register</Button>
+          {isAuth ? (
+            <>
+              <Button variant="contained" sx={{ marginRight: "0.8rem" }}>
+                Write Article
+              </Button>
+              <Button variant="outlined" onClick={onClickLogout}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                component={Link}
+                to="/login"
+                variant="outlined"
+                sx={{ marginRight: "0.8rem" }}
+              >
+                Login
+              </Button>
+              <Button variant="contained">Register</Button>
+            </>
+          )}
         </div>
       </Container>
     </StyledAppBar>

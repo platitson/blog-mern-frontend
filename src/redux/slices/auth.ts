@@ -35,7 +35,12 @@ export const fetchAuth: AsyncThunk<
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.data = null;
+      state.status = "loading";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAuth.pending, (state) => {
@@ -53,4 +58,6 @@ const authSlice = createSlice({
   },
 });
 
+export const isAuthSelector = (state) => Boolean(state.auth.data);
 export const authReducer: Reducer<InitialState> = authSlice.reducer;
+export const { logout } = authSlice.actions;
