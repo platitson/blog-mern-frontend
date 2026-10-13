@@ -12,6 +12,7 @@ type Tabs = "new" | "popular";
 
 export const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const userData = useSelector((state: RootState) => state.auth.data);
   const { posts, lastTags, status } = useSelector(
     (state: RootState) => state.posts
   );
@@ -39,7 +40,13 @@ export const Home = () => {
             {isPostsLoading ? (
               <Skeleton variant="rounded" height={420} />
             ) : (
-              posts.map((post, idx) => <PostCard key={idx} post={post} />)
+              posts.map((post, idx) => (
+                <PostCard
+                  key={idx}
+                  post={post}
+                  isEditable={userData?._id === post.author._id}
+                />
+              ))
             )}
           </Left>
           <Right>

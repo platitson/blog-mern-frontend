@@ -9,7 +9,7 @@ export type PostSchemaType = CreateFromSchema<typeof PostSchema>;
 export type PostType = PostSchemaType & {
   _id: string;
   author: {
-    id: string;
+    _id: string;
     fullName: string;
   };
   viewsCount: number;
