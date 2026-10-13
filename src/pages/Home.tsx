@@ -79,6 +79,5 @@ const Left = styled("div")(() => ({
 }));
 
 const Right = styled("div")(() => ({
-  minWidth: "15rem",
-  maxWidth: "30vw",
+  width: "18rem",
 }));
