@@ -25,7 +25,7 @@ export const PostCard = ({ post, isEditable }: PostCardProps) => {
     <StyledCard>
       <CardMedia
         sx={{ height: 280 }}
-        image={post.imageUrl ?? Banana}
+        image={post.imageUrl ? `http://localhost:4444${post.imageUrl}` : Banana}
         title={post.title}
       />
       <CardContent>

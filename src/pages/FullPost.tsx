@@ -35,12 +35,25 @@ export const FullPost = () => {
           >
             {data.title}
           </Typography>
-          {data.imageUrl && <img src={data.imageUrl} alt={data.title} />}
+          {data.imageUrl && (
+            <img
+              src={`http://localhost:4444${data.imageUrl}`}
+              alt={data.title}
+            />
+          )}
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
             By {data.author.fullName}, {formatDate(data.createdAt)}
           </Typography>
-          {data.tags && data.tags.map((tag) => <Tag tag={tag} />)}
-          <Typography variant="body1">{data.text}</Typography>
+          {data.tags && (
+            <Tags>
+              {data.tags.map((tag) => (
+                <Tag tag={tag} />
+              ))}
+            </Tags>
+          )}
+          <Typography variant="body1" sx={{ textAlign: "justify" }}>
+            {data.text}
+          </Typography>
         </>
       )}
     </Wrapper>
@@ -57,4 +70,9 @@ const Wrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     width: "95vw",
   },
+}));
+
+const Tags = styled("div")(() => ({
+  display: "flex",
+  gap: "0.4rem",
 }));

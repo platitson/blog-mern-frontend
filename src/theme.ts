@@ -7,6 +7,7 @@ const COLORS = {
   mainTint: "#ebeef4",
   gray: "#626875",
   white: "#fff",
+  error: "#b94a48",
 };
 
 export const theme = createTheme({
@@ -21,6 +22,9 @@ export const theme = createTheme({
     },
     info: {
       main: COLORS.mainTint,
+    },
+    error: {
+      main: COLORS.error,
     },
     background: {
       default: COLORS.white,

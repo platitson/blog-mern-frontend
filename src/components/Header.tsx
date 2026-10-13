@@ -30,7 +30,12 @@ export const Header = () => {
         <div>
           {isAuth ? (
             <>
-              <Button variant="contained" sx={{ marginRight: "0.8rem" }}>
+              <Button
+                component={Link}
+                to="/create"
+                variant="contained"
+                sx={{ marginRight: "0.8rem" }}
+              >
                 Write Article
               </Button>
               <Button variant="outlined" onClick={onClickLogout}>
